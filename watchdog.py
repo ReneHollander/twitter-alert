@@ -22,15 +22,18 @@ userid = 2420931980
 def gottweet(tweet):
     wave_obj.play()
 
+def stringify(tweet):
+    # print(str(tweet))
+    return "[" + tweet['created_at'] + "] @" + tweet['user']['screen_name'] + ": " + tweet['text'].replace('\n', ' ')
 
 class MyListener(StreamListener):
     def on_data(self, tweet):
         tweet = json.loads(tweet)
         if tweet['user']['id'] == userid:
-            print("Official Tweet: " + str(tweet))
+            print("Official Tweet: " + stringify(tweet))
             gottweet(tweet)
         else:
-            print("Other: " + str(tweet))
+            print("Other: " + stringify(tweet))
         return True
 
 
